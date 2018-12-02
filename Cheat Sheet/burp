@@ -1,0 +1,32 @@
+# burp
+
+http://skora.net/news/24-itsec-projects/26-the-burp-sessionauth-extension
+
+# plugins
+* xss
+https://github.com/nVisium/xssValidator
+
+* sqlmap plugin and others
+http://code.google.com/p/gason/
+
+* generates sitemap using wayback machine
+https://github.com/k4ch0w/PwnBack
+
+# compare
+http://blog.secureideas.com/2013/08/comparing-authorization-levels-with.html
+
+# java serialisation
+Attacking java serialisation (java thick clients / applets -> java web service): DSer / BurpDSer plugin for burp
+
+# extensions
+www.burpextensions.com
+https://pro.portswigger.net/bappstore/
+https://github.com/nccgroup/ has a lot of burp extensions
+
+# license check bypass
+copy ~/.java/.userPrefs/prefs.xml and provide same account username
+with: java -Duser.name=john -jar burpsuite_pro_v1.5.x.jar (worked with 1.5.17)
+
+# handshake alert: unrecognized_name
+stems from an update in Java 7, where Server Name Indication (SNI) support was enabled by default.
+fix: java -Djsse.enableSNIExtension=false -jar burpsuiteX.jar
