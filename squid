@@ -1,7 +1,0 @@
-# squid
-
-# Via
-affiche la version du squid
-
-# X-Forwarded-For
-affiche login du client
