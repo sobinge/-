@@ -8,3 +8,6 @@ https://github.com/MyselfExplorer/hackingLibrary/blob/master/%E6%88%91%E6%98%AF%
 # Freebuf Open version:
 (thanks for>translation&editorm@TEag1e(楼兰);proofread@Freebuf:shidongqi)
 https://www.freebuf.com/neopoints/190895.html
+
+# Receive_donation
+![be](https://github.com/MyselfExplorer/hackingLibrary/blob/master/receive%20donation(wechat).png)
